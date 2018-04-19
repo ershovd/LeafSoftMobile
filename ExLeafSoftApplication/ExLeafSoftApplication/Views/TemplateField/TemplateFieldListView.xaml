@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:viewmodel="clr-namespace:ExLeafSoftApplication.ViewModels"
+             x:Class="ExLeafSoftApplication.Views.TemplateFieldListView" x:Name="SelectedFields">
+
+    <ContentView.BindingContext>
+        <viewmodel:TemplateFieldListViewModel/>
+    </ContentView.BindingContext>
+
+    <ListView 
+                  IsPullToRefreshEnabled="True" 
+                  RefreshCommand="{Binding BindingContext.RefreshCommand,Source={x:Reference SelectedFields}}"  
+                  CachingStrategy="RecycleElement"
+                  IsRefreshing="{Binding BindingContext.IsRefreshing,Mode=OneWay,Source={x:Reference SelectedFields}}"
+               
+                   ItemsSource="{Binding BindingContext.FieldList,Source={x:Reference SelectedFields}}" Margin="20" 
+                  ItemSelected="SelectedField">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <StackLayout Margin="20,0,0,0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                        <Label Text="{Binding FieldName}" VerticalTextAlignment="Center" HorizontalOptions="StartAndExpand" />
+                        <Label Text="{Binding FieldAreaSize,StringFormat={}{0}}" 
+                               VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand" />
+
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</ContentView>

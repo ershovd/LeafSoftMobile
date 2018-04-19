@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:ExLeafSoftApplication.ViewModels"
+             x:Class="ExLeafSoftApplication.Views.AllFarmerPage" 
+             Title="Farmers" x:Name="AllFarmers">
+
+    <ContentPage.BindingContext>
+        <viewmodel:AllFarmerViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="+" Clicked="OnFarmerClicked">
+            <ToolbarItem.Icon>
+                <OnPlatform x:TypeArguments="FileImageSource">
+                    <On Platform="Android" Value="plus.png" />
+                </OnPlatform>
+            </ToolbarItem.Icon>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+
+    <ContentView x:Name="contentView" Padding="0,20,0,0"
+                 ControlTemplate="{StaticResource FarmerPageTemplate}" BindingContext="{Binding BindingContext, Source={x:Reference AllFarmers}">
+        <ListView x:Name="FarmerlistView"   
+                  IsPullToRefreshEnabled="True" 
+                  RefreshCommand="{Binding BindingContext.RefreshCommand,Source={x:Reference contentView}}"  
+                  CachingStrategy="RecycleElement"
+                  IsRefreshing="{Binding BindingContext.IsRefreshing,Mode=OneWay,Source={x:Reference contentView}}"
+               
+              ItemsSource="{Binding BindingContext.FarmerList,Mode=TwoWay,Source={x:Reference contentView}}" Margin="20" ItemSelected="FarmerSelected">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Margin="20,0,0,0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                            <Label Text="{Binding FirstName}" VerticalTextAlignment="Center" HorizontalOptions="StartAndExpand" />
+                            <Label Text="{Binding LastName}" VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand" />
+                            <!--<Image Source="check.png" HorizontalOptions="End" IsVisible="{Binding Done}" />-->
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentView>
+
+
+   
+    
+   
+</ContentPage>

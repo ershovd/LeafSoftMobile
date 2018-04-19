@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:viewmodel="clr-namespace:ExLeafSoftApplication.ViewModels"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ExLeafSoftApplication.Views.Login"  Title="Login">
+
+    <ContentPage.BindingContext>
+        <viewmodel:LoginViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+
+        <Grid  VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35">
+
+                </RowDefinition>
+                <RowDefinition Height="35">
+                </RowDefinition>
+                <RowDefinition Height="35">
+                </RowDefinition>
+                <RowDefinition Height="35">
+                </RowDefinition>
+
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="*" ></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Label Text="Welcome to Xamarin Forms!" 
+           x:Name="BackgroundServiceLabel"
+           VerticalOptions="Center" 
+           HorizontalOptions="Center" />
+
+            <Entry HeightRequest="35"  WidthRequest="200" Grid.Row="0" Grid.Column="0" Placeholder="UserName" Text="{Binding UserName}"   > </Entry>
+
+            <Entry HeightRequest="35" WidthRequest="200" Grid.Row="1"  Grid.Column="0" IsPassword="True" Placeholder="Password" Text="{Binding Password}" ></Entry>
+
+            <Button HeightRequest="35"  Text="Login" Grid.Row="2" Grid.Column="1" Clicked="Button_Clicked" ></Button>
+
+            <!--<StackLayout>
+                <Button x:Name="takePhotoButton"  Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"  Text="Take Photos" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Clicked="OnTakePhotoButtonClicked" />
+            </StackLayout>-->
+
+        </Grid>
+
+        
+       
+    </ContentPage.Content>
+</ContentPage>

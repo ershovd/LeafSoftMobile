@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ExLeafSoftApplication.Views.RegisterPage"
+             xmlns:vm="clr-namespace:ExLeafSoftApplication.ViewModels;"
+             Title="{Binding Title}">
+	<ContentPage.BindingContext>
+		<vm:RegisterViewModel />
+	</ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"  />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="*" ></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Entry  HeightRequest="35" WidthRequest="200"  Grid.Row="0" Grid.Column="0" Placeholder="UserName" ></Entry>
+            <Entry  HeightRequest="35" WidthRequest="200" Grid.Row="1" Grid.Column="0" Placeholder="Email" ></Entry>
+            <Entry  HeightRequest="35" WidthRequest="200" Grid.Row="2" Grid.Column="0" Placeholder="Password" ></Entry>
+
+
+            <Button HeightRequest="35" Text="Register" Grid.Row="3" Grid.Column="1" Clicked="Register_Clicked" ></Button>
+
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

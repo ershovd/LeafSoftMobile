@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:ExLeafSoftApplication.ViewModels"
+             xmlns:converter="clr-namespace:ExLeafSoftApplication.Converter"
+             xmlns:local="clr-namespace:ExLeafSoftApplication.Views"
+             x:Class="ExLeafSoftApplication.Views.FarmerAbstractPage"  Title="FarmerDetail" x:Name="FarmerDetail">
+
+    <ContentPage.BindingContext>
+        <viewmodel:FarmerAbstractViewModel/>
+    </ContentPage.BindingContext>
+
+
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:InverseBoolConverter x:Key="inverseBool" />
+          
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Edit Farmer" Clicked="OnFarmerClicked">
+            
+        </ToolbarItem>
+
+      
+    </ContentPage.ToolbarItems>
+
+
+
+    <local:FieldListView ContentExist="{Binding IsActiveTo}"  SelectedFarmer="{Binding Farmer,Mode=TwoWay}" 
+                         SelectedFarmerAddress="{Binding FarmerAddress,Mode=TwoWay}"
+                         x:Name="farmerDetailView" 
+                 ControlTemplate="{StaticResource FieldPageTemplate}" 
+                 BindingContext="{Binding BindingContext, Source={x:Reference FarmerDetail}">
+
+
+       
+       
+
+        <!--<local:MapView  IsVisible="{Binding BindingContext.IsActiveTo,Mode=OneWay,
+        Source={x:Reference farmerDetailView}}" >
+        </local:MapView>-->
+
+
+
+        <!--<local:FieldListView BindingContext="{Binding BindingContext,Source={x:Reference farmerDetailView}}"  
+                             ContentExist="{Binding BindingContext.IsActiveTo,Mode=OneWay,
+                                      Source={x:Reference farmerDetailView}}">
+            
+        </local:FieldListView>-->
+
+       
+
+
+    </local:FieldListView>
+
+    <!--<ContentView   x:Name="farmerfieldListView" 
+                 ControlTemplate="{StaticResource FieldPageTemplate}" 
+                 BindingContext="{Binding BindingContext, Source={x:Reference FarmerDetail}">
+
+     
+
+    </ContentView>-->
+
+  
+
+
+</ContentPage>

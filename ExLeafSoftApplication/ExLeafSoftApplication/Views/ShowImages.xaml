@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ExLeafSoftApplication.Views.ShowImages">
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView x:Name="ImageList" RowHeight="100" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <!--<StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand"  BackgroundColor="Olive">-->
+                                <Image WidthRequest="100" HeightRequest="80" HorizontalOptions="FillAndExpand"   Source="{Binding ImgSource}}"></Image>
+                            <!--</StackLayout>-->
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

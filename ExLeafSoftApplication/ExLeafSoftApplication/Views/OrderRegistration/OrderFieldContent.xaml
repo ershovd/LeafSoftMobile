@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:ExLeafSoftApplication.ViewModels"
+             x:Class="ExLeafSoftApplication.Views.OrderFieldContent" 
+             HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" >
+
+    <ContentView.BindingContext>
+        <viewmodel:OrderFieldContentViewModel/>
+    </ContentView.BindingContext>
+
+    <ContentView.Content>
+        <ListView x:Name="FieldlistView"   
+                  IsPullToRefreshEnabled="True" 
+                  RefreshCommand="{Binding RefreshCommand}"  
+                  CachingStrategy="RecycleElement"
+                  IsRefreshing="{Binding IsRefreshing,Mode=OneWay}}"
+               
+              ItemsSource="{Binding FieldList,Mode=TwoWay}" Margin="20" ItemSelected="FieldSelected">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Margin="20,0,0,0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                            <Label Text="{Binding FieldName}" VerticalTextAlignment="Center" HorizontalOptions="StartAndExpand" />
+                            <Label Text="{Binding FieldAreaSize}" VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand" />
+                            <!--<Image Source="check.png" HorizontalOptions="End" IsVisible="{Binding Done}" />-->
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentView.Content>
+
+
+</ContentView>

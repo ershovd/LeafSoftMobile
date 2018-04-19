@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:ExLeafSoftApplication.ViewModels"
+             x:Class="ExLeafSoftApplication.Views.OrderList" 
+             Title="OrderList" x:Name="OrderList">
+
+    <ContentPage.BindingContext>
+        <viewmodel:OrderListViewModel />
+    </ContentPage.BindingContext>
+
+    
+
+
+    <ContentView x:Name="contentView" Padding="0,20,0,0"
+                 ControlTemplate="{StaticResource OrderPageTemplate}" 
+                 BindingContext="{Binding BindingContext, Source={x:Reference OrderList}">
+        <ListView x:Name="FarmerlistView"   
+                  IsPullToRefreshEnabled="True" 
+                  RefreshCommand="{Binding BindingContext.RefreshCommand,Source={x:Reference contentView}}"  
+                  CachingStrategy="RecycleElement"
+                  IsRefreshing="{Binding BindingContext.IsRefreshing,Mode=OneWay,Source={x:Reference contentView}}"
+               
+              ItemsSource="{Binding BindingContext.OrderList,Mode=TwoWay,Source={x:Reference contentView}}" Margin="20" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Margin="20,0,0,0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                            <Label Text="{Binding OrdeFieldName}" VerticalTextAlignment="Center" HorizontalOptions="StartAndExpand" />
+                            <Label Text="{Binding OrdeStatus}" VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand" />
+                            <Label Text="{Binding OrdeCreationDate}" VerticalTextAlignment="Center" HorizontalOptions="CenterAndExpand" />
+                            <!--<Image Source="check.png" HorizontalOptions="End" IsVisible="{Binding Done}" />-->
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentView>
+
+
+   
+    
+   
+</ContentPage>

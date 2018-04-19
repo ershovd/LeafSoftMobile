@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:ExLeafSoftApplication.ViewModels"
+            xmlns:converter="clr-namespace:ExLeafSoftApplication.Converter"
+             xmlns:mapView="clr-namespace:ExLeafSoftApplication.Views"
+            xmlns:local="clr-namespace:ExLeafSoftApplication.Validator"
+             x:Class="ExLeafSoftApplication.Views.FieldPage" 
+           
+              x:Name="Fields">
+
+   
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:BoolToStringConverter x:Key="boolToString" />
+            <converter:BoolToFillColorConverter x:Key="boolToStyle" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ContentPage.BindingContext>
+        <viewmodel:FieldViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.ToolbarItems >
+        <ToolbarItem Text="{Binding ButtonName}"  Command="{Binding SaveFieldCommand}">
+
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <Grid VerticalOptions="Start"  HorizontalOptions="FillAndExpand" >
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" ></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="5*"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition  Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <!--<StackLayout Margin="20" VerticalOptions="StartAndExpand">-->
+
+        <Entry  HeightRequest="30" Grid.Row="0" Grid.Column="0" Text="{Binding FieldName}" Placeholder="FieldName">
+            <Entry.Behaviors>
+                <local:FieldNameValidatorBehavior x:Name="fieldNameValidator" FarmerGuid="{Binding BindingContext.FarmerGuid,Source={x:Reference Fields}}"
+                                                  IsValid="{Binding BindingContext.FieldNameIsValid,Source={x:Reference Fields}}" >
+
+                </local:FieldNameValidatorBehavior>
+            </Entry.Behaviors>
+        </Entry>
+
+        <Image  Grid.Row="0" Grid.Column="2"   Style="{Binding Source={x:Reference fieldNameValidator}, 
+                                Path=IsValid,Converter={StaticResource boolToStyle}}}" ></Image>
+
+        <Entry  HeightRequest="30" Grid.Row="1" Grid.Column="0" Text="{Binding SampleAreaSize}" Placeholder="Area Size">
+            <Entry.Behaviors>
+                <local:FieldSizeValidatorBehavior x:Name="sampleAreaSizeValidator" 
+                                              IsValid="{Binding BindingContext.SampleAreaSizeIsValid,Source={x:Reference Fields}}" >
+
+                </local:FieldSizeValidatorBehavior>
+            </Entry.Behaviors>
+        </Entry>
+
+        <Image  Grid.Row="1" Grid.Column="2"   Style="{Binding Source={x:Reference sampleAreaSizeValidator}, 
+                                Path=IsValid,Converter={StaticResource boolToStyle}}}" ></Image>
+
+        <Picker   HeightRequest="30" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding AreaUnits}" 
+                 SelectedItem="{Binding AreaUnit}" />
+
+        <Entry IsEnabled="False" HeightRequest="30" Grid.Row="2" Grid.Column="0" Text="{Binding Source={x:Reference MapViewPosition}, 
+                                Path=GpsPosition}" />
+
+        <!--<Image Grid.Row="2" Grid.Column="1"   Style="{Binding Source={x:Reference emailValidator}, 
+                                Path=IsValid,Converter={StaticResource boolToStyle}}}" ></Image>-->
+
+
+        <mapView:MapView x:Name="MapViewPosition" GpsPosition="{Binding GpsPosition,Mode=TwoWay}"  Grid.Row="3" Grid.ColumnSpan="3" ></mapView:MapView>
+
+
+
+    </Grid>
+
+</ContentPage>

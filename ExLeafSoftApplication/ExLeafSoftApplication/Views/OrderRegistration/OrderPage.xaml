@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:ExLeafSoftApplication.ViewModels"
+             xmlns:control="clr-namespace:ExLeafSoftApplication.Common"
+            
+             x:Class="ExLeafSoftApplication.Views.OrderPage" Title="Order" x:Name="Orders">
+    <ContentPage.BindingContext>
+        <viewmodel:OrderRegistrationViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" >
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"  Spacing="20">
+                
+                <Label Text="{Binding SelectedFarmer.FirstName}"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+                <Button Text="{Binding BtnFarmerSelection}"  Command="{Binding CommandFarmerSelection}" HorizontalOptions="End" VerticalOptions="Start" HeightRequest="35">
+
+                </Button>
+               
+            </StackLayout>
+            <BoxView BackgroundColor="Red" HeightRequest="1" />
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"  Spacing="20">
+                <Label Text="{Binding SelectedField.FieldName}"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+                <Button Text="{Binding BtnFieldSelection}"  Command="{Binding CommandFieldSelection}" HorizontalOptions="End" VerticalOptions="Start" HeightRequest="35">
+
+                </Button>
+            </StackLayout>
+            <BoxView BackgroundColor="Red" HeightRequest="1" />
+            <!--<StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"     Spacing="20">
+                <Label Text="Select Field"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+                <Button Text="Select Field" HeightRequest="35"  HorizontalOptions="End"  VerticalOptions="Start">
+
+                </Button>
+            </StackLayout>
+            <BoxView BackgroundColor="Red" HeightRequest="1" />-->
+            <StackLayout IsEnabled="{Binding CropSelectionIsEnabled,Mode=OneWay}" Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"  Spacing="20">
+
+               
+                <control:CustomScrollView Orientation="Horizontal" HorizontalOptions="Start" VerticalOptions="Start" ItemsSource="{Binding listofImgs}" HeightRequest="120">
+                    <control:CustomScrollView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Padding="5">
+
+                                    <Image Source="{Binding ImgSource}" HeightRequest="80" WidthRequest="80" >
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding BindingContext.CommandCropSelection, Source={x:Reference Orders}}" 
+                                                                   CommandParameter="{Binding OriginalImageName}"  NumberOfTapsRequired="2" />
+                                        </Image.GestureRecognizers>
+
+                                    </Image>
+                                    <Label Text="{Binding Name}" HeightRequest="30" FontSize="Medium" HorizontalOptions="Center" />
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </control:CustomScrollView.ItemTemplate>
+                </control:CustomScrollView>
+
+
+
+                <Button IsEnabled="{Binding CropSelectionIsEnabled,Mode=OneWay}" Text="{Binding BtnCropSelection}"  
+                        Command="{Binding CommandCropSelection}" HeightRequest="35"  HorizontalOptions="End" VerticalOptions="Start">
+
+                </Button>
+               
+            </StackLayout>
+            <StackLayout IsEnabled="{Binding CropSelectionIsEnabled,Mode=OneWay}" Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <Button  Text="Complete Order"  Command="{Binding CommandCompleteOrder}"  HeightRequest="35" VerticalOptions="Start" HorizontalOptions="FillAndExpand" ></Button>
+            </StackLayout>
+        </StackLayout>
+    
+    </ContentPage.Content>
+</ContentPage>

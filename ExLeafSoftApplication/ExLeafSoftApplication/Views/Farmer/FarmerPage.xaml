@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:ExLeafSoftApplication.ViewModels"
+            xmlns:converter="clr-namespace:ExLeafSoftApplication.Converter"
+            xmlns:local="clr-namespace:ExLeafSoftApplication.Validator"
+             x:Class="ExLeafSoftApplication.Views.FarmerPage" 
+           
+             Title="Farmer" x:Name="Farmers">
+
+   
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:BoolToStringConverter x:Key="boolToString" />
+            <converter:BoolToFillColorConverter x:Key="boolToStyle" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ContentPage.BindingContext>
+        <viewmodel:FarmerViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"></ColumnDefinition>
+            <ColumnDefinition  Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <!--<StackLayout Margin="20" VerticalOptions="StartAndExpand">-->
+
+        <Entry HeightRequest="35" Grid.Row="0" Grid.Column="0" Text="{Binding FirstName}" Placeholder="FirstName">
+            <Entry.Behaviors>
+                <local:NameValidatorBehavior x:Name="firstnameValidator" IsValid="{Binding BindingContext.FirstNameIsValid,Source={x:Reference Farmers}}" >
+
+                </local:NameValidatorBehavior>
+            </Entry.Behaviors>
+        </Entry>
+
+        <Image Grid.Row="0" Grid.Column="1"   Style="{Binding Source={x:Reference firstnameValidator}, 
+                                Path=IsValid,Converter={StaticResource boolToStyle}}}" ></Image>
+
+        <Entry HeightRequest="35" Grid.Row="1" Grid.Column="0" Text="{Binding LastName}" Placeholder="Last Name">
+            <Entry.Behaviors>
+                <local:NameValidatorBehavior x:Name="lastnameValidator" IsValid="{Binding BindingContext.LastNameIsValid,Source={x:Reference Farmers}}" >
+
+                </local:NameValidatorBehavior>
+            </Entry.Behaviors>
+        </Entry>
+
+        <Image Grid.Row="1" Grid.Column="1"   Style="{Binding Source={x:Reference lastnameValidator}, 
+                                Path=IsValid,Converter={StaticResource boolToStyle}}}" ></Image>
+
+        <Entry HeightRequest="35" Grid.Row="2" Grid.Column="0" Text="{Binding Email}" Placeholder="Email" >
+            <Entry.Behaviors>
+                <local:EmailValidatorBehavior x:Name="emailValidator" FarmerGuid="{Binding BindingContext.GuidId,Mode=TwoWay,Source={x:Reference Farmers}}"  
+                                              FarmerId="{Binding BindingContext.FarmerID,Mode=TwoWay,Source={x:Reference Farmers}}"
+                                              IsValid="{Binding BindingContext.EmailIsValid,Mode=TwoWay,Source={x:Reference Farmers}}" >
+
+                </local:EmailValidatorBehavior>
+            </Entry.Behaviors>
+        </Entry>
+
+        <Image Grid.Row="2" Grid.Column="1"   Style="{Binding Source={x:Reference emailValidator}, 
+                                Path=IsValid,Converter={StaticResource boolToStyle}}}" ></Image>
+        <!--<Entry  Grid.Row="2" Grid.Column="1"  IsVisible="{Binding Source={x:Reference emailValidator},Path=IsValid}" 
+                   Text="{Binding  Source={x:Reference emailValidator}, 
+                                Path=IsValid,Converter={StaticResource boolToString}}" />-->
+
+
+
+        <Entry HeightRequest="35" Grid.Row="3" Grid.Column="0" x:Name="Phone"  Text="{Binding Phone}" Placeholder="Phone"  >
+            <Entry.Behaviors>
+                <local:PhoneValidatorBehavior x:Name="phoneValidator" IsValid="{Binding BindingContext.PhoneIsValid,Source={x:Reference Farmers}}" >
+
+                </local:PhoneValidatorBehavior>
+            </Entry.Behaviors>
+        </Entry>
+
+        <Image Grid.Row="3" Grid.Column="1"   Style="{Binding Source={x:Reference phoneValidator}, 
+                                Path=IsValid,Converter={StaticResource boolToStyle}}}" ></Image>
+
+        <DatePicker  Grid.Row="4" Grid.Column="0" Date="{Binding BirthDate,StringFormat='{0:M-d-yyyy}'}" >
+            <DatePicker.Behaviors>
+                <local:BirthDateValidatorBehavior x:Name="birthdateValidator" IsValid="{Binding BindingContext.BirthDateIsValid,Source={x:Reference Farmers}}" >
+                </local:BirthDateValidatorBehavior>
+            </DatePicker.Behaviors>
+        </DatePicker>
+
+        <Image Grid.Row="4" Grid.Column="1"   Style="{Binding Source={x:Reference birthdateValidator}, 
+                                Path=IsValid,Converter={StaticResource boolToStyle}}}" ></Image>
+
+        <Entry Text="{Binding Address}" Grid.Row="5" Grid.Column="0" Placeholder="Address">
+            <Entry.Behaviors>
+                <local:AddressValidatorBehavior x:Name="addressValidator" IsValid="{Binding BindingContext.AddressIsValid,Source={x:Reference Farmers}}" >
+
+                </local:AddressValidatorBehavior>
+            </Entry.Behaviors>
+
+        </Entry>
+
+        <Image Grid.Row="5" Grid.Column="1"   Style="{Binding Source={x:Reference addressValidator}, 
+                                Path=IsValid,Converter={StaticResource boolToStyle}}}" ></Image>
+
+        <Picker x:Name="CountryPicker" Grid.Row="6" Grid.Column="0" Title="Select Country" SelectedIndexChanged="Country_SelectedIndexChanged" 
+                ItemsSource="{Binding CountryList}" ItemDisplayBinding="{Binding Coun_Name}" SelectedItem="{Binding SelectedCountry}">
+            <Picker.Behaviors>
+                <local:NullValidatorBehavior x:Name="countryValidator" IsValid="{Binding BindingContext.CountryIsValid,Source={x:Reference Farmers}}" >
+                </local:NullValidatorBehavior>
+            </Picker.Behaviors>
+        </Picker>
+
+        <Image Grid.Row="6" Grid.Column="1"   Style="{Binding Source={x:Reference countryValidator}, 
+                                Path=IsValid,Converter={StaticResource boolToStyle}}}" ></Image>
+
+
+        <Picker IsEnabled="{Binding IsCountry}" Grid.Row="7" Grid.Column="0" Title="Select City" SelectedIndexChanged="City_SelectedIndexChanged" 
+                ItemsSource="{Binding CityList}" ItemDisplayBinding="{Binding City_Name}" SelectedItem="{Binding SelectedCity}" >
+            <Picker.Behaviors>
+                <local:NullValidatorBehavior x:Name="cityValidator" IsValid="{Binding BindingContext.CityIsValid,Source={x:Reference Farmers}}" >
+                </local:NullValidatorBehavior>
+            </Picker.Behaviors>
+        </Picker>
+
+        <Image Grid.Row="7" Grid.Column="1"   Style="{Binding Source={x:Reference cityValidator}, 
+                                Path=IsValid,Converter={StaticResource boolToStyle}}}" ></Image>
+
+
+        <!--<Label Text="Aktif" />
+        <Switch IsToggled="{Binding Done}" />-->
+        <Button  IsEnabled="{Binding CanExecute}"  Grid.Row="8" Grid.Column="0" Text="{Binding BtnName}" 
+                 Command="{ Binding SaveFarmer}"  />
+        <Button  Grid.Row="9" Grid.Column="0" IsVisible="{Binding OperationType,Mode=OneWay}" Text="Delete" Command="{Binding DeleteFarmer}"  />
+
+        <!--</StackLayout>-->
+    </Grid>
+
+
+
+
+
+</ContentPage>

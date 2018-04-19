@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:b="clr-namespace:Xamarin.Forms.;assembly=Xamarin.Forms.Core"
+              xmlns:local="clr-namespace:ExLeafSoftApplication.Validator"
+             x:Class="ExLeafSoftApplication.App">
+	<Application.Resources>
+
+        <!--https://xamarinhelp.com/xamarin-forms-page-templates/-->
+		<!-- Application resource dictionary -->
+        <ResourceDictionary>
+            <ControlTemplate x:Key="FieldPageTemplate">
+                <StackLayout>
+                    <StackLayout  Orientation="Vertical" VerticalOptions="StartAndExpand"  HorizontalOptions="Center" HeightRequest="100">
+                      
+                            <Label HeightRequest="25" Text="Farmer Name Phone Number Address"  ></Label>
+                            <Label HeightRequest="25" Text="Farmer Name Phone Number Address"  ></Label>
+                     
+                       
+                        <StackLayout HeightRequest="50" VerticalOptions="EndAndExpand" HorizontalOptions="Center" Orientation="Horizontal">
+                            <Button  HeightRequest="30"   Text="Field List" Command="{TemplateBinding BindingContext.GetFieldList}"></Button>
+                            <Button HeightRequest="30"   Text="Map List"  Command="{TemplateBinding BindingContext.GetFieldMap}}"></Button>
+                        </StackLayout>
+                      
+                    </StackLayout>
+                    <ContentPresenter VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" />
+                    <Button HeightRequest="35" Text="Add Field" Command="{TemplateBinding BindingContext.AddFieldCommand}"   ></Button>
+                </StackLayout>
+            </ControlTemplate>
+
+            <ControlTemplate x:Key="FarmerPageTemplate">
+                <StackLayout>
+                    <Entry  BindingContext="{TemplateBinding BindingContext}" 
+                           HeightRequest="35" Text="{TemplateBinding  BindingContext.FarmerSearch}"  
+                           Placeholder="Search Farmer">
+                        <Entry.Behaviors>
+                            <local:EventToCommandBehavior EventName="Completed" Command="{Binding SubmitCommand}"  />
+                            <!--<b:EventToCommand EventName="Completed" Converter="{StaticResource SelectedItemConverter}"
+                                                   Command="{Binding SubmitCommand}" />-->
+                        </Entry.Behaviors>
+
+                    </Entry>
+                    <ContentPresenter />
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                        <Button HeightRequest="35" HorizontalOptions="StartAndExpand" Text="Go Order" Command="{TemplateBinding BindingContext.GoOrder}"   ></Button>
+                        <Button HeightRequest="35" HorizontalOptions="EndAndExpand" Text="OrderList" Command="{TemplateBinding BindingContext.OrderList}"   ></Button>
+                    </StackLayout>
+                    
+                </StackLayout>
+            </ControlTemplate>
+
+            <ControlTemplate x:Key="OrderPageTemplate">
+                <StackLayout>
+                    <Entry  BindingContext="{TemplateBinding BindingContext}" 
+                           HeightRequest="35" Text="{TemplateBinding  BindingContext.OrderSearch}"  
+                           Placeholder="Search Order">
+                        <Entry.Behaviors>
+                            <local:EventToCommandBehavior EventName="Completed" Command="{Binding SubmitCommand}"  />
+                            <!--<b:EventToCommand EventName="Completed" Converter="{StaticResource SelectedItemConverter}"
+                                                   Command="{Binding SubmitCommand}" />-->
+                        </Entry.Behaviors>
+
+                    </Entry>
+                    <ContentPresenter />
+                  
+
+                </StackLayout>
+            </ControlTemplate>
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
